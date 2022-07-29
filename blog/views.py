@@ -4,26 +4,32 @@ from django.views.decorators.csrf import csrf_exempt
 from blog.models import Post
 from django.views import generic
 from django.template.defaultfilters import slugify
+from django.template.loader import render_to_string
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 
-"""
-@csrf_exempt
-def index(request):
-    if 'search' in request.GET:
-        search = request.GET['search']
-        data = Post.objects.filter(title__icontains=search)
+def like_post(request):
+    post = get_object_or_404(Post, id=request.POST.get('id'))
+    print(post.id)
+    is_liked = False
+    if post.is_liked:
+        post.is_liked = False
+        post.save()
+        is_liked = False
     else:
-        data = Post.objects.all()
-    if request.method == 'POST':
-        title = request.POST.get('post-title')
-        content = request.POST.get('post-text')
-        obj = Post()
-        obj.title = title        
-        obj.content = content
-        obj.created_on
-        obj.save()
-    return render(request, 'index.html',{'data': data})
-"""
+        post.is_liked = True
+        post.save()
+        is_liked = True
+    """context = {
+        'post': post,
+        'is_liked': is_liked,
+        'id': post.id
+    }"""
+    print(is_liked)
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({'is_liked': is_liked})
+
 
 
 class PostList(generic.ListView):
@@ -39,6 +45,7 @@ class PostList(generic.ListView):
         obj.slug = slugify(title)
         obj.content = content
         obj.created_on
+        obj.is_liked
         obj.save()
         data = self.get_queryset()
         return render(request, 'index.html',{'data':data})
@@ -54,3 +61,5 @@ class PostList(generic.ListView):
 class PostDetail(generic.DetailView):
     model = Post
     template_name = 'post_detail.html'
+
+

@@ -8,18 +8,20 @@
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="navbar-brand" aria-current="page" href="/">Home</a>
+          <a class="navbar-brand" aria-current="page" href="/">Főoldal</a>
         </li>
       </ul>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" style="margin-right: 25px">Bejegyzés hozzáadása</button>
       <form class="d-flex">
-        <input name ="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" method="GET">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input name ="search" class="form-control me-2" type="search" placeholder="Keresés a címekben" aria-label="Search" method="GET">
+        <button class="btn btn-outline-success" type="submit">Keresés</button>
       </form>
 
     </div>
@@ -33,7 +35,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="POST" name="input">
+        <form method="GET" name="input">
                 {% csrf_token %}
           <div class="mb-3">
             <label for="post-title" class="col-form-label">Bejegyzés címe</label>
@@ -56,5 +58,6 @@
 {% block content %}
 
 {% endblock content %}
+
 </body>
 </html>

@@ -7,6 +7,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
+    is_liked = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
