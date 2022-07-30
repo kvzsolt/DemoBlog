@@ -11,7 +11,6 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 def like_post(request):
     post = get_object_or_404(Post, id=request.POST.get('id'))
-    print(post.id)
     is_liked = False
     if post.is_liked:
         post.is_liked = False
@@ -20,16 +19,10 @@ def like_post(request):
     else:
         post.is_liked = True
         post.save()
-        is_liked = True
-    """context = {
-        'post': post,
-        'is_liked': is_liked,
-        'id': post.id
-    }"""
-    print(is_liked)
+        is_liked = True   
+    
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         return JsonResponse({'is_liked': is_liked})
-
 
 
 class PostList(generic.ListView):
@@ -40,6 +33,7 @@ class PostList(generic.ListView):
     def post(self, request, *args, **kwargs):
         title = request.POST.get('post-title')
         content = request.POST.get('post-text')
+        print(title, content)
         obj = Post()
         obj.title = title
         obj.slug = slugify(title)
