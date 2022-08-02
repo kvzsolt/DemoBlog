@@ -33,21 +33,15 @@
                     btn.classList.add('btn-danger');
                     btn.classList.remove('btn-primary');
                     btn.innerText = 'Nem tetszik';
-                }else if(response['is_liked']=== false){
+                }else{
                     btn.classList.add('btn-primary');
                     btn.classList.remove('btn-danger');
                     btn.innerText = 'Tetszik';
-
                 }
-
-
-
               },
               error: function(rs,e){
                   console.log(rs.responseText);
               }
-
-
           })
       })
     })

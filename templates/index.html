@@ -11,7 +11,7 @@
                         <h2 class="card-title">{{ post.title }}</h2>
                         <p class="card-text text-muted h6">{{ post.created_on}} </p>
                         <p class="card-text">{{post.content|slice:":200" }}</p>
-                        <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary float-left">Olvasson tovább &rarr;</a>
+                        <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary float-left">Olvasson tovább</a>
 
                     </div>
                 </div>

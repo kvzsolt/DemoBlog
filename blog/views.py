@@ -1,12 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse, request
-from django.views.decorators.csrf import csrf_exempt
 from blog.models import Post
 from django.views import generic
 from django.template.defaultfilters import slugify
-from django.template.loader import render_to_string
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import JsonResponse
 
 
 def like_post(request):
@@ -33,7 +30,6 @@ class PostList(generic.ListView):
     def post(self, request, *args, **kwargs):
         title = request.POST.get('post-title')
         content = request.POST.get('post-text')
-        print(title, content)
         obj = Post()
         obj.title = title
         obj.slug = slugify(title)
@@ -42,7 +38,7 @@ class PostList(generic.ListView):
         obj.is_liked
         obj.save()
         data = self.get_queryset()
-        return render(request, 'index.html',{'data':data})
+        return render(request, 'index.html', {'data': data})
 
     def get_queryset(self, *args, **kwargs):
         data = super().get_queryset(*args, **kwargs)
